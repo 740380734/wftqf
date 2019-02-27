@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qianfeng.dao.WtfSponsperMapper">
+  <resultMap id="BaseResultMap" type="com.qianfeng.pojo.WtfSponsper">
+    <id column="sponsor_id" jdbcType="INTEGER" property="sponsorId" />
+    <result column="sponsor_name" jdbcType="VARCHAR" property="sponsorName" />
+    <result column="sponsor_desc" jdbcType="VARCHAR" property="sponsorDesc" />
+    <result column="sponsor_boss" jdbcType="VARCHAR" property="sponsorBoss" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    sponsor_id, sponsor_name, sponsor_desc, sponsor_boss
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from wtf_sponsor
+    where sponsor_id = #{sponsorId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from wtf_sponsor
+    where sponsor_id = #{sponsorId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qianfeng.pojo.WtfSponsper">
+    insert into wtf_sponsor (sponsor_id, sponsor_name, sponsor_desc, 
+      sponsor_boss)
+    values (#{sponsorId,jdbcType=INTEGER}, #{sponsorName,jdbcType=VARCHAR}, #{sponsorDesc,jdbcType=VARCHAR}, 
+      #{sponsorBoss,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qianfeng.pojo.WtfSponsper">
+    insert into wtf_sponsor
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sponsorId != null">
+        sponsor_id,
+      </if>
+      <if test="sponsorName != null">
+        sponsor_name,
+      </if>
+      <if test="sponsorDesc != null">
+        sponsor_desc,
+      </if>
+      <if test="sponsorBoss != null">
+        sponsor_boss,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sponsorId != null">
+        #{sponsorId,jdbcType=INTEGER},
+      </if>
+      <if test="sponsorName != null">
+        #{sponsorName,jdbcType=VARCHAR},
+      </if>
+      <if test="sponsorDesc != null">
+        #{sponsorDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="sponsorBoss != null">
+        #{sponsorBoss,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qianfeng.pojo.WtfSponsper">
+    update wtf_sponsor
+    <set>
+      <if test="sponsorName != null">
+        sponsor_name = #{sponsorName,jdbcType=VARCHAR},
+      </if>
+      <if test="sponsorDesc != null">
+        sponsor_desc = #{sponsorDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="sponsorBoss != null">
+        sponsor_boss = #{sponsorBoss,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sponsor_id = #{sponsorId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qianfeng.pojo.WtfSponsper">
+    update wtf_sponsor
+    set sponsor_name = #{sponsorName,jdbcType=VARCHAR},
+      sponsor_desc = #{sponsorDesc,jdbcType=VARCHAR},
+      sponsor_boss = #{sponsorBoss,jdbcType=VARCHAR}
+    where sponsor_id = #{sponsorId,jdbcType=INTEGER}
+  </update>
+</mapper>

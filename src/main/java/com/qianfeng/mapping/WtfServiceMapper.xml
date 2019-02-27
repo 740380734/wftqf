@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qianfeng.dao.WtfServiceMapper">
+  <resultMap id="BaseResultMap" type="com.qianfeng.pojo.WtfService">
+    <id column="service_id" jdbcType="INTEGER" property="serviceId" />
+    <result column="service_name" jdbcType="VARCHAR" property="serviceName" />
+    <result column="service_desc" jdbcType="VARCHAR" property="serviceDesc" />
+    <result column="service_price" jdbcType="DECIMAL" property="servicePrice" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    service_id, service_name, service_desc, service_price
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from wtf_service
+    where service_id = #{serviceId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from wtf_service
+    where service_id = #{serviceId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qianfeng.pojo.WtfService">
+    insert into wtf_service (service_id, service_name, service_desc, 
+      service_price)
+    values (#{serviceId,jdbcType=INTEGER}, #{serviceName,jdbcType=VARCHAR}, #{serviceDesc,jdbcType=VARCHAR}, 
+      #{servicePrice,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qianfeng.pojo.WtfService">
+    insert into wtf_service
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="serviceId != null">
+        service_id,
+      </if>
+      <if test="serviceName != null">
+        service_name,
+      </if>
+      <if test="serviceDesc != null">
+        service_desc,
+      </if>
+      <if test="servicePrice != null">
+        service_price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="serviceId != null">
+        #{serviceId,jdbcType=INTEGER},
+      </if>
+      <if test="serviceName != null">
+        #{serviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceDesc != null">
+        #{serviceDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePrice != null">
+        #{servicePrice,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qianfeng.pojo.WtfService">
+    update wtf_service
+    <set>
+      <if test="serviceName != null">
+        service_name = #{serviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceDesc != null">
+        service_desc = #{serviceDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePrice != null">
+        service_price = #{servicePrice,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where service_id = #{serviceId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qianfeng.pojo.WtfService">
+    update wtf_service
+    set service_name = #{serviceName,jdbcType=VARCHAR},
+      service_desc = #{serviceDesc,jdbcType=VARCHAR},
+      service_price = #{servicePrice,jdbcType=DECIMAL}
+    where service_id = #{serviceId,jdbcType=INTEGER}
+  </update>
+  <select id="findAllService" resultMap="BaseResultMap">
+      select * from wtf_service
+  </select>
+</mapper>

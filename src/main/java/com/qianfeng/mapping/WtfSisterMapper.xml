@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qianfeng.dao.WtfSisterMapper">
+  <resultMap id="BaseResultMap" type="com.qianfeng.pojo.WtfSister">
+    <id column="sis_id" jdbcType="INTEGER" property="sisId" />
+    <result column="sis_name" jdbcType="VARCHAR" property="sisName" />
+    <result column="sis_desc" jdbcType="VARCHAR" property="sisDesc" />
+    <result column="sis_price" jdbcType="INTEGER" property="sisPrice" />
+    <result column="sis_flag" jdbcType="VARCHAR" property="sisFlag" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    sis_id, sis_name, sis_desc, sis_price, sis_flag
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from wft_sister
+    where sis_id = #{sisId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from wft_sister
+    where sis_id = #{sisId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qianfeng.pojo.WtfSister">
+    insert into wft_sister (sis_id, sis_name, sis_desc, 
+      sis_price, sis_flag)
+    values (#{sisId,jdbcType=INTEGER}, #{sisName,jdbcType=VARCHAR}, #{sisDesc,jdbcType=VARCHAR}, 
+      #{sisPrice,jdbcType=INTEGER}, #{sisFlag,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qianfeng.pojo.WtfSister">
+    insert into wft_sister
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sisId != null">
+        sis_id,
+      </if>
+      <if test="sisName != null">
+        sis_name,
+      </if>
+      <if test="sisDesc != null">
+        sis_desc,
+      </if>
+      <if test="sisPrice != null">
+        sis_price,
+      </if>
+      <if test="sisFlag != null">
+        sis_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sisId != null">
+        #{sisId,jdbcType=INTEGER},
+      </if>
+      <if test="sisName != null">
+        #{sisName,jdbcType=VARCHAR},
+      </if>
+      <if test="sisDesc != null">
+        #{sisDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="sisPrice != null">
+        #{sisPrice,jdbcType=INTEGER},
+      </if>
+      <if test="sisFlag != null">
+        #{sisFlag,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qianfeng.pojo.WtfSister">
+    update wft_sister
+    <set>
+      <if test="sisName != null">
+        sis_name = #{sisName,jdbcType=VARCHAR},
+      </if>
+      <if test="sisDesc != null">
+        sis_desc = #{sisDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="sisPrice != null">
+        sis_price = #{sisPrice,jdbcType=INTEGER},
+      </if>
+      <if test="sisFlag != null">
+        sis_flag = #{sisFlag,jdbcType=INTEGER},
+      </if>
+    </set>
+    where sis_id = #{sisId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qianfeng.pojo.WtfSister">
+    update wft_sister
+    set sis_name = #{sisName,jdbcType=VARCHAR},
+      sis_desc = #{sisDesc,jdbcType=VARCHAR},
+      sis_price = #{sisPrice,jdbcType=INTEGER},
+      sis_flag = #{sisFlag,jdbcType=INTEGER}
+    where sis_id = #{sisId,jdbcType=INTEGER}
+  </update>
+  <select id="findAllSister" resultMap="BaseResultMap">
+      select * from wft_sister
+  </select>
+</mapper>

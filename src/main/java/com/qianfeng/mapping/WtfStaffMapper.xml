@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qianfeng.dao.WtfStaffMapper">
+  <resultMap id="BaseResultMap" type="com.qianfeng.pojo.WtfStaff">
+    <id column="staff_id" jdbcType="INTEGER" property="staffId" />
+    <result column="staff_name" jdbcType="VARCHAR" property="staffName" />
+    <result column="staff_work" jdbcType="VARCHAR" property="staffWork" />
+    <result column="staff_desc" jdbcType="VARCHAR" property="staffDesc" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    staff_id, staff_name, staff_work, staff_desc
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from wft_staff
+    where staff_id = #{staffId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from wft_staff
+    where staff_id = #{staffId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qianfeng.pojo.WtfStaff">
+    insert into wft_staff (staff_id, staff_name, staff_work, 
+      staff_desc)
+    values (#{staffId,jdbcType=INTEGER}, #{staffName,jdbcType=VARCHAR}, #{staffWork,jdbcType=VARCHAR}, 
+      #{staffDesc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qianfeng.pojo.WtfStaff">
+    insert into wft_staff
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="staffId != null">
+        staff_id,
+      </if>
+      <if test="staffName != null">
+        staff_name,
+      </if>
+      <if test="staffWork != null">
+        staff_work,
+      </if>
+      <if test="staffDesc != null">
+        staff_desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="staffId != null">
+        #{staffId,jdbcType=INTEGER},
+      </if>
+      <if test="staffName != null">
+        #{staffName,jdbcType=VARCHAR},
+      </if>
+      <if test="staffWork != null">
+        #{staffWork,jdbcType=VARCHAR},
+      </if>
+      <if test="staffDesc != null">
+        #{staffDesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qianfeng.pojo.WtfStaff">
+    update wft_staff
+    <set>
+      <if test="staffName != null">
+        staff_name = #{staffName,jdbcType=VARCHAR},
+      </if>
+      <if test="staffWork != null">
+        staff_work = #{staffWork,jdbcType=VARCHAR},
+      </if>
+      <if test="staffDesc != null">
+        staff_desc = #{staffDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where staff_id = #{staffId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qianfeng.pojo.WtfStaff">
+    update wft_staff
+    set staff_name = #{staffName,jdbcType=VARCHAR},
+      staff_work = #{staffWork,jdbcType=VARCHAR},
+      staff_desc = #{staffDesc,jdbcType=VARCHAR}
+    where staff_id = #{staffId,jdbcType=INTEGER}
+  </update>
+</mapper>
